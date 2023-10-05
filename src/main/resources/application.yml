@@ -1,0 +1,38 @@
+spring:
+  jpa:
+    generate-ddl: 'false'
+    database: mysql
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        use_sql_comments: true
+        format_sql: true
+        show_sql: true
+    hibernate:
+      ddl-auto: none
+    open-in-view: true
+  thymeleaf:
+    cache: false
+  datasource:
+    url: ENC(P4KMJ7i2gJCbOGLYTEOeDL8Wo6ekRZIqUMF+g/2URSu8CL3qn+1+erPCs29iUbWQwkL0Nv9PcT4R2PnGfs4GbsTAIpEggugWUb+jxiu1Lt3d9P14wGhrbub7tNy2nzZpb35Zuto2NBQ=)
+    password: ENC(vwLv2ukB/lI1nnbWbUOlNQvz+cOiQmP0)
+    username: ENC(KT/Y/Bcn/lfOn8ItKazz0A==)
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  devtools:
+    livereload:
+      enabled: true
+  servlet:
+    multipart:
+      enabled: true
+      max-request-size: 30MB
+      max-file-size: 10MB
+logging:
+  config: classpath:logback.xml
+#jasypt
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+secret-key-source: ${SECRET_KEY_SOURCE}

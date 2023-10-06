@@ -9,8 +9,8 @@ public class ApiUtils {
         return new Response<>(true, status, message, data);
     }
 
-    public static <T> Response<T> success(HttpStatus status, String message, T data) {
-        return new Response<>(true, status.value(), message, data);
+    public static <T> Response<T> success(HttpStatus status, T data) {
+        return new Response<>(true, status.value(), data);
     }
 
 }

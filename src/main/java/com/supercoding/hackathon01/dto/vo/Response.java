@@ -21,4 +21,12 @@ public class Response<T> {
         this.message = message;
         this.data = data;
     }
+
+    @Builder
+    public Response(Boolean result, Integer status,  T data) {
+        this.result = result;
+        this.status = status;
+        this.message = null;
+        this.data = data;
+    }
 }

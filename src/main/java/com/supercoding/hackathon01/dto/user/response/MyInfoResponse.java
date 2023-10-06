@@ -18,11 +18,13 @@ public class MyInfoResponse {
     private String email;
     private String nickname;
     private String createdAt;
+    private String phoneNumber;
 
     public static MyInfoResponse from(User user) {
         return MyInfoResponse.builder()
                 .email(user.getEmail())
                 .nickname(user.getNickname())
+                .phoneNumber(user.getPhoneNumber())
                 .createdAt(DateUtils.convertToString(user.getCreatedAt()))
                 .build();
     }

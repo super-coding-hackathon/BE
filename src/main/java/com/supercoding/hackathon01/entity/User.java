@@ -49,11 +49,17 @@ public class User {
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 
+    @Size(max = 45)
+    @NotNull
+    @Column(name = "phone_number", nullable = false, length = 45)
+    private String phoneNumber;
+
     public static User from(SignupRequest signupRequest, String passwordEnc) {
         return User.builder()
                 .email(signupRequest.getEmail())
                 .password(passwordEnc)
                 .nickname(signupRequest.getNickname())
+                .phoneNumber(signupRequest.getPhoneNumber())
                 .isDeleted(false)
                 .build();
     }

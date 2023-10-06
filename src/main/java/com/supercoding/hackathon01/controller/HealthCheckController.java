@@ -13,7 +13,7 @@ public class HealthCheckController {
 
     @GetMapping("")
     public Response<Void> checkServerStatus() {
-        return ApiUtils.success(HttpStatus.OK, "서버가 살아있음", null);
+        return ApiUtils.success(HttpStatus.OK, null);
     }
 
 }

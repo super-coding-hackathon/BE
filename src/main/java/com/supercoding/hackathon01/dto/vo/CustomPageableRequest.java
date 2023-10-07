@@ -17,6 +17,4 @@ public class CustomPageableRequest {
     private Integer page;
     @ApiModelProperty(value = "조회할 개수", required = true, example = "10")
     private Integer size;
-    @ApiModelProperty(value = "책일때 가나다: title,asc 리뷰개수순: r.id,desc 리뷰일 때 id,desc", example = "lexically")
-    private String sort;
 }

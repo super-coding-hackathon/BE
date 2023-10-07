@@ -43,5 +43,7 @@ public class RegisterHomeRequest {
     private String mapId;
     @ApiModelProperty(value = "도로명 주소", dataType = "String")
     private String roadAddress;
+    @ApiModelProperty(value = "건물 별칭", dataType = "String")
+    private String name;
 
 }

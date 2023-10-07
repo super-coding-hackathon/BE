@@ -51,7 +51,11 @@ public class HomeCustomRepositoryImpl implements HomeCustomRepository {
                 .select(Projections.constructor(ViewPointListResponse.class,
                         address1.home.id,
                         address1.latitude,
-                        address1.longitude
+                        address1.longitude,
+                        address1.home.name,
+                        address1.home.transactionType,
+                        address1.home.deposit,
+                        address1.home.price
                         ))
                 .from(address1)
                 .leftJoin(address1.home, home)

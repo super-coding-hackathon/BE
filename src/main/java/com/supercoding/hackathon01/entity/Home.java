@@ -9,6 +9,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -69,12 +71,21 @@ public class Home {
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 
+    @OneToMany(mappedBy = "home", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Picture> pictures = new ArrayList<>();
+
+    @Size(max = 45)
+    @NotNull
+    @Column(name = "name", nullable = false, length = 45)
+    private String name;
+
     public static Home of(RegisterHomeRequest homeRequest, User user, Category category) {
         return Home.builder()
                 .category(category)
                 .isDeleted(false)
                 .user(user)
                 .transactionType(homeRequest.getTransactionType())
+                .name(homeRequest.getName())
                 .deposit(homeRequest.getDeposit())
                 .price(homeRequest.getPrice())
                 .squareFeet(homeRequest.getSquareFeet())

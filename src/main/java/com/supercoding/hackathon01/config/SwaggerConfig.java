@@ -1,6 +1,7 @@
 package com.supercoding.hackathon01.config;
 
 import com.fasterxml.classmate.TypeResolver;
+import com.supercoding.hackathon01.dto.vo.CustomPageableRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Pageable;
@@ -35,7 +36,8 @@ public class SwaggerConfig {
                 .build()
                 .apiInfo(apiInfo())
                 .consumes(Collections.singleton(MediaType.MULTIPART_FORM_DATA_VALUE))
-                .produces(Collections.singleton(MediaType.APPLICATION_JSON_VALUE));
+                .produces(Collections.singleton(MediaType.APPLICATION_JSON_VALUE))
+                .alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(Pageable.class), typeResolver.resolve(CustomPageableRequest.class)));
 
     }
 

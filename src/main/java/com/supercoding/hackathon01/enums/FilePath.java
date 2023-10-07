@@ -3,7 +3,7 @@ package com.supercoding.hackathon01.enums;
 public enum FilePath {
     USER_DIR("user/"),
     SEPARATE_POINT(".com/"),
-    SHOP_DIR("shop/"),
+    HOME_DIR("home/"),
     MENU_DIR("menu/"),
     REVIEW_DIR("review/");
 

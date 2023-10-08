@@ -16,4 +16,7 @@ public class PurchaseListResponse {
     private Long homeId;
     private String homeName;
     private String sellerContractFile;
+    private String address;
+    private String thumbnailUrl;
+    private Long deposit;
 }

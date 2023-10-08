@@ -14,21 +14,31 @@ import org.springframework.data.repository.query.Param;
 public interface TransactionRepository extends TransactionCustomRepository, JpaRepository<Transaction, Long> {
 
     @Query("SELECT new com.supercoding.hackathon01.dto.my_page.response.SellingListResponse " +
-            "(t.id, t.buyer.nickname, t.status.name, t.home.id, t.home.name, t.buyerFileUrl) " +
+            "(t.id, t.buyer.nickname, t.status.name, t.home.id, t.home.name, t.buyerFileUrl, a.address, p.url, t.home.deposit) " +
             "FROM Transaction t " +
             "JOIN t.seller " +
             "ON t.seller = :seller " +
             "JOIN t.home " +
-            "JOIN t.status ")
+            "JOIN t.status " +
+            "JOIN Address a " +
+            "ON a.home = t.home " +
+            "JOIN Picture p " +
+            "ON p.home = t.home " +
+            "AND p.isThumbnail = true")
     Page<SellingListResponse> findBySellingList(@Param("seller") User user, Pageable pageable);
 
     @Query("SELECT new com.supercoding.hackathon01.dto.my_page.response.PurchaseListResponse " +
-            "(t.id, t.seller.nickname, t.status.name, t.home.id, t.home.name, t.sellerFileUrl) " +
+            "(t.id, t.seller.nickname, t.status.name, t.home.id, t.home.name, t.sellerFileUrl, a.address, p.url, t.home.deposit) " +
             "FROM Transaction t " +
             "JOIN t.buyer " +
             "ON t.buyer = :buyer " +
             "JOIN t.home " +
-            "JOIN t.status ")
+            "JOIN t.status " +
+            "JOIN Address a " +
+            "ON a.home = t.home " +
+            "JOIN Picture p " +
+            "ON p.home = t.home " +
+            "AND p.isThumbnail = true")
     Page<PurchaseListResponse> findByPurchaseList(@Param("buyer") User user, Pageable pageable);
 
     @Query("SELECT new com.supercoding.hackathon01.dto.my_page.response.HomeListResponse " +

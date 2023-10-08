@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -45,6 +46,10 @@ public class Transaction {
     @Lob
     @Column(name = "buyer_file_url")
     private String buyerFileUrl;
+
+    @Size(max = 45)
+    @Column(name = "account_number", length = 45)
+    private String accountNumber;
 
     public static Transaction of(Home home, User user) {
         return Transaction.builder()

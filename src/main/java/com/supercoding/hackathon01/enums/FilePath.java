@@ -2,6 +2,7 @@ package com.supercoding.hackathon01.enums;
 
 public enum FilePath {
     USER_DIR("user/"),
+    CONTRACT_DIR("contract/"),
     SEPARATE_POINT(".com/"),
     HOME_DIR("home/"),
     MENU_DIR("menu/"),

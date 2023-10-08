@@ -62,7 +62,7 @@ public class HomeCustomRepositoryImpl implements HomeCustomRepository {
                 .where(
                         isDeletedFalse(),
                         eqCategoryId(viewHomeListRequest.getCategoryId()),
-                        distance.round().intValue().lt(3000)
+                        distance.round().intValue().lt(2700)
                 )
                 .fetch();
     }

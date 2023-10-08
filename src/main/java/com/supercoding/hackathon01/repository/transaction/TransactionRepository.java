@@ -17,7 +17,7 @@ import java.util.List;
 public interface TransactionRepository extends TransactionCustomRepository, JpaRepository<Transaction, Long> {
 
     @Query("SELECT new com.supercoding.hackathon01.dto.my_page.response.SellingListResponse " +
-            "(t.id, t.buyer.nickname, t.status.name, t.home.id, t.home.name, t.buyerFileUrl, a.address, p.url, t.home.deposit) " +
+            "(t.id, t.buyer.nickname, t.status.name, t.status.id, t.home.id, t.home.name, t.buyerFileUrl, a.address, p.url, t.home.deposit) " +
             "FROM Transaction t " +
             "JOIN t.seller " +
             "ON t.seller = :seller " +
@@ -31,7 +31,7 @@ public interface TransactionRepository extends TransactionCustomRepository, JpaR
     Page<SellingListResponse> findBySellingList(@Param("seller") User user, Pageable pageable);
 
     @Query("SELECT new com.supercoding.hackathon01.dto.my_page.response.PurchaseListResponse " +
-            "(t.id, t.seller.nickname, t.status.name, t.home.id, t.home.name, t.sellerFileUrl, a.address, p.url, t.home.deposit, t.accountNumber) " +
+            "(t.id, t.seller.nickname, t.status.name, t.status.id, t.home.id, t.home.name, t.sellerFileUrl, a.address, p.url, t.home.deposit, t.accountNumber) " +
             "FROM Transaction t " +
             "JOIN t.buyer " +
             "ON t.buyer = :buyer " +

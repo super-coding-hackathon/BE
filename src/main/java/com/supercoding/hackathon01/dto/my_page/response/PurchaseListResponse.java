@@ -19,4 +19,5 @@ public class PurchaseListResponse {
     private String address;
     private String thumbnailUrl;
     private Long deposit;
+    private String accountNumber;
 }

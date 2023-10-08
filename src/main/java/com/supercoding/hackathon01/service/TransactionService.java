@@ -3,6 +3,7 @@ package com.supercoding.hackathon01.service;
 import com.supercoding.hackathon01.dto.my_page.response.HomeListResponse;
 import com.supercoding.hackathon01.dto.my_page.response.PurchaseListResponse;
 import com.supercoding.hackathon01.dto.my_page.response.SellingListResponse;
+import com.supercoding.hackathon01.dto.my_page.response.StatusCountResponse;
 import com.supercoding.hackathon01.dto.transaction.request.NextStepRequest;
 import com.supercoding.hackathon01.dto.vo.PaginationResponse;
 import com.supercoding.hackathon01.entity.Home;
@@ -27,6 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -82,6 +84,16 @@ public class TransactionService {
                 .contents(pageData.getContent())
                 .totalElements(pageData.getTotalElements())
                 .build();
+    }
+
+    public List<StatusCountResponse> getMySellingStatusCount() {
+        User user = validUser(AuthHolder.getUserId());
+        return transactionRepository.countTransactionsByStatusForSeller(user);
+    }
+
+    public List<StatusCountResponse> getMyPurchaseStatusCount() {
+        User user = validUser(AuthHolder.getUserId());
+        return transactionRepository.countTransactionsByStatusForBuyer(user);
     }
 
     public Void nextStep(Long transactionId, NextStepRequest nextStepRequest) {

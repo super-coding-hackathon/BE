@@ -3,6 +3,7 @@ package com.supercoding.hackathon01.controller;
 import com.supercoding.hackathon01.dto.my_page.response.HomeListResponse;
 import com.supercoding.hackathon01.dto.my_page.response.PurchaseListResponse;
 import com.supercoding.hackathon01.dto.my_page.response.SellingListResponse;
+import com.supercoding.hackathon01.dto.my_page.response.StatusCountResponse;
 import com.supercoding.hackathon01.dto.user.response.MyInfoResponse;
 import com.supercoding.hackathon01.dto.vo.PaginationResponse;
 import com.supercoding.hackathon01.dto.vo.Response;
@@ -18,6 +19,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -55,6 +58,21 @@ public class MyPageController {
     public Response<PaginationResponse<HomeListResponse>> getHomeList(Pageable pageable) {
         return ApiUtils.success(HttpStatus.OK, transactionService.getMyHomeList(pageable));
     }
+
+    @Auth
+    @GetMapping("/sell/status-count")
+    @Operation(summary = "판매 현황 상태 개수 조회")
+    public Response<List<StatusCountResponse>> getSellingStatusCount() {
+        return ApiUtils.success(HttpStatus.OK, transactionService.getMySellingStatusCount());
+    }
+
+    @Auth
+    @GetMapping("/buy/status-count")
+    @Operation(summary = "구매 현황 상태 개수 조회")
+    public Response<List<StatusCountResponse>> getPurchaseStatusCount() {
+        return ApiUtils.success(HttpStatus.OK, transactionService.getMyPurchaseStatusCount());
+    }
+
 
 
 }

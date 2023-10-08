@@ -13,6 +13,7 @@ public class SellingListResponse {
     private Long transactionId;
     private String buyer;
     private String transactionStatus;
+    private Long transactionStatusId;
     private Long homeId;
     private String homeName;
     private String buyerContractFile;

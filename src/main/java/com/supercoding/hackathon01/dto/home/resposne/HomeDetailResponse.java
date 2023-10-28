@@ -33,7 +33,7 @@ public class HomeDetailResponse {
     private String detailAddress;
     private String roadAddress;
     private List<ImageFiles> imageFiles;
-    private String type;
+    private String categoryName;
 
 
     @Getter
@@ -70,7 +70,7 @@ public class HomeDetailResponse {
                 .detailAddress(address.getDetailAddress())
                 .roadAddress(address.getRoadAddress())
                 .imageFiles(home.getPictures().stream().map(ImageFiles::from).collect(Collectors.toList()))
-                .type(home.getCategory().getName())
+                .categoryName(home.getCategory().getName())
                 .build();
     }
 

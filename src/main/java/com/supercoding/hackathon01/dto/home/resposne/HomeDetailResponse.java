@@ -34,6 +34,7 @@ public class HomeDetailResponse {
     private String roadAddress;
     private List<ImageFiles> imageFiles;
     private String categoryName;
+    private Boolean isMine;
 
 
     @Getter
@@ -53,7 +54,7 @@ public class HomeDetailResponse {
 
     }
 
-    public static HomeDetailResponse of(Home home, Address address) {
+    public static HomeDetailResponse of(Home home, Address address, Boolean isMine) {
         return HomeDetailResponse.builder()
                 .homeId(home.getId())
                 .transactionType(home.getTransactionType())
@@ -71,6 +72,7 @@ public class HomeDetailResponse {
                 .roadAddress(address.getRoadAddress())
                 .imageFiles(home.getPictures().stream().map(ImageFiles::from).collect(Collectors.toList()))
                 .categoryName(home.getCategory().getName())
+                .isMine(isMine)
                 .build();
     }
 

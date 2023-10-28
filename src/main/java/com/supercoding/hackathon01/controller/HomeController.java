@@ -5,7 +5,10 @@ import com.supercoding.hackathon01.dto.home.request.ViewHomeListRequest;
 import com.supercoding.hackathon01.dto.home.resposne.HomeDetailResponse;
 import com.supercoding.hackathon01.dto.home.resposne.ViewPointListResponse;
 import com.supercoding.hackathon01.dto.vo.Response;
+import com.supercoding.hackathon01.error.CustomException;
+import com.supercoding.hackathon01.error.domain.UserErrorCode;
 import com.supercoding.hackathon01.security.Auth;
+import com.supercoding.hackathon01.security.TokenProvider;
 import com.supercoding.hackathon01.service.HomeService;
 import com.supercoding.hackathon01.utils.ApiUtils;
 import io.swagger.annotations.Api;
@@ -14,15 +17,18 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 @RequestMapping("api/home")
 @Api(tags = "집 관련 API")
 public class HomeController {
@@ -55,8 +61,17 @@ public class HomeController {
 
     @GetMapping("/{home_id}")
     @Operation(summary = "건물 디테일 조회", description = "건물 디테일 조회")
-    public Response<HomeDetailResponse> detailHome(@PathVariable("home_id") Long homeId) {
-        return ApiUtils.success(HttpStatus.OK, homeService.detailHome(homeId));
+    public Response<HomeDetailResponse> detailHome(@PathVariable("home_id") Long homeId, HttpServletRequest request) {
+        Long userId = null;
+        if(request.getHeader("Authorization") != null) {
+            if (!request.getHeader("Authorization").startsWith("Bearer ")) {
+                throw new CustomException(UserErrorCode.HANDLE_ACCESS_DENIED);
+            }
+            String token = request.getHeader("Authorization").split(" ")[1];
+
+            userId = TokenProvider.getUserId(token);
+        }
+        return ApiUtils.success(HttpStatus.OK, homeService.detailHome(homeId, userId));
     }
 
     @Auth

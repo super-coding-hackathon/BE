@@ -95,10 +95,14 @@ public class HomeService {
         return homeCustomRepository.findPointList(viewHomeListRequest);
     }
 
-    public HomeDetailResponse detailHome(Long homeId) {
+    public HomeDetailResponse detailHome(Long homeId, Long userId) {
         Home home = validHome(homeId);
         Address address = addressRepository.findByHome(home).orElseThrow(() -> new CustomException(HomeErrorCode.NOT_FOUND_HOME));
-        return HomeDetailResponse.of(home, address);
+        boolean isMine = false;
+        if (userId != null) {
+            if (Objects.equals(home.getUser().getId(), userId)) isMine = true;
+        }
+        return HomeDetailResponse.of(home, address, isMine);
     }
 
     public Void deleteHome(Long homeId) {

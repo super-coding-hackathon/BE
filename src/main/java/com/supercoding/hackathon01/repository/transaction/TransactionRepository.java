@@ -54,7 +54,8 @@ public interface TransactionRepository extends TransactionCustomRepository, JpaR
             "ON a.home = h " +
             "JOIN Picture p " +
             "ON p.home = h " +
-            "AND p.isThumbnail = true")
+            "AND p.isThumbnail = true " +
+            "AND h.isDeleted = false ")
     Page<HomeListResponse> findByMyHomeList(@Param("user") User user, Pageable pageable);
 
     @Query("SELECT new com.supercoding.hackathon01.dto.my_page.response.StatusCountResponse " +

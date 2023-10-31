@@ -51,11 +51,17 @@ public class HomeService {
         addressRepository.save(address);
         List<Picture> pictures = new ArrayList<>();
 
-        imageFiles.forEach(file -> pictures.add(Picture.of(uploadImageFile(file, home), home, false)));
-        pictureRepository.saveAll(pictures);
+        if (imageFiles != null) {
+            imageFiles.forEach(file -> pictures.add(Picture.of(uploadImageFile(file, home), home, false)));
+            pictureRepository.saveAll(pictures);
+        }
+        if (thumbnailImage != null) {
+            Picture thumbnail = Picture.of(uploadImageFile(thumbnailImage, home), home, true);
+            pictureRepository.save(thumbnail);
+        }
 
-        Picture thumbnail = Picture.of(uploadImageFile(thumbnailImage, home), home, true);
-        pictureRepository.save(thumbnail);
+
+
 
     }
 
@@ -82,11 +88,14 @@ public class HomeService {
 
         List<Picture> pictures = new ArrayList<>();
 
-        imageFiles.forEach(file -> pictures.add(Picture.of(uploadImageFile(file, newHome), newHome, false)));
-        pictureRepository.saveAll(pictures);
-
-        Picture thumbnail = Picture.of(uploadImageFile(thumbnailImage, newHome), newHome, true);
-        pictureRepository.save(thumbnail);
+        if (imageFiles != null) {
+            imageFiles.forEach(file -> pictures.add(Picture.of(uploadImageFile(file, newHome), newHome, false)));
+            pictureRepository.saveAll(pictures);
+        }
+        if (thumbnailImage != null) {
+            Picture thumbnail = Picture.of(uploadImageFile(thumbnailImage, newHome), newHome, true);
+            pictureRepository.save(thumbnail);
+        }
 
         return null;
     }

@@ -71,7 +71,7 @@ public class Home {
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 
-    @OneToMany(mappedBy = "home", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "home", cascade = CascadeType.ALL)
     private List<Picture> pictures = new ArrayList<>();
 
     @Size(max = 45)

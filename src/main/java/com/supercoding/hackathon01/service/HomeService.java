@@ -82,10 +82,6 @@ public class HomeService {
         address.setId(originAddress.getId());
         addressRepository.save(address);
 
-        List<Picture> removePictures = pictureRepository.findByHome(newHome);
-        removePictures.forEach(picture -> awsS3Service.removeFile(picture.getUrl()));
-        pictureRepository.deleteAll(removePictures);
-
         List<Picture> pictures = new ArrayList<>();
 
         if (imageFiles != null) {

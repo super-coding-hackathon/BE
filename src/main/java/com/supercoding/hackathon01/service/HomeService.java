@@ -52,31 +52,17 @@ public class HomeService {
         List<Picture> pictures = new ArrayList<>();
 
         if (imageFiles != null) {
-
-            List<Picture> originPicture = pictureRepository.findByHome(home);
-            originPicture.forEach(picture -> {
-                if (Boolean.FALSE.equals(picture.getIsThumbnail())) {
-                    deletedFile(picture.getUrl());
-                    pictureRepository.deleteById(picture.getId());
-                }
-            });
-
             imageFiles.forEach(file -> pictures.add(Picture.of(uploadImageFile(file, home), home, false)));
             pictureRepository.saveAll(pictures);
         }
         if (thumbnailImage != null) {
-
-            List<Picture> originPicture = pictureRepository.findByHome(home);
-
-            originPicture.forEach(picture -> {
-                if (Boolean.TRUE.equals(picture.getIsThumbnail())) {
-                    deletedFile(picture.getUrl());
-                    pictureRepository.deleteById(picture.getId());
-                }
-            });
             Picture thumbnail = Picture.of(uploadImageFile(thumbnailImage, home), home, true);
             pictureRepository.save(thumbnail);
         }
+
+
+
+
     }
 
     @Transactional
@@ -104,12 +90,27 @@ public class HomeService {
 
         if (imageFiles != null) {
 
-
+            List<Picture> originPicture = pictureRepository.findByHome(originHome);
+            originPicture.forEach(picture -> {
+                if (Boolean.FALSE.equals(picture.getIsThumbnail())) {
+                    deletedFile(picture.getUrl());
+                    pictureRepository.deleteById(picture.getId());
+                }
+            });
 
             imageFiles.forEach(file -> pictures.add(Picture.of(uploadImageFile(file, newHome), newHome, false)));
             pictureRepository.saveAll(pictures);
         }
         if (thumbnailImage != null) {
+
+            List<Picture> originPicture = pictureRepository.findByHome(originHome);
+
+            originPicture.forEach(picture -> {
+                if (Boolean.TRUE.equals(picture.getIsThumbnail())) {
+                    deletedFile(picture.getUrl());
+                    pictureRepository.deleteById(picture.getId());
+                }
+            });
             Picture thumbnail = Picture.of(uploadImageFile(thumbnailImage, newHome), newHome, true);
             pictureRepository.save(thumbnail);
         }

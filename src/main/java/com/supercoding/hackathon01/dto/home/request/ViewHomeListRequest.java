@@ -14,5 +14,8 @@ public class ViewHomeListRequest {
     private Long categoryId;
     private Double latitude;
     private Double longitude;
+    private Integer squareFeetFilter;
+    private Integer priceFilter;
+    private Boolean isParking;
 
 }

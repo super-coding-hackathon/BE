@@ -25,12 +25,14 @@ public class UserService {
 
 
     @Transactional
-    public void signup(SignupRequest signupRequest) {
+    public LoginResponse signup(SignupRequest signupRequest) {
         checkDuplicateEmail(signupRequest.getEmail());
         checkConfirmPassword(signupRequest.getPassword(), signupRequest.getPasswordCheck());
         User user = User.from(signupRequest, passwordEncoder.encode(signupRequest.getPassword()));
 
         userRepository.save(user);
+        String accessToken = TokenProvider.createToken(user);
+        return LoginResponse.from(user, accessToken);
     }
 
     public MyInfoResponse getMyInfo() {

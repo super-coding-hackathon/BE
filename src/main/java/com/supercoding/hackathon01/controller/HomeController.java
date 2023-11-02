@@ -2,7 +2,9 @@ package com.supercoding.hackathon01.controller;
 
 import com.supercoding.hackathon01.dto.home.request.RegisterHomeRequest;
 import com.supercoding.hackathon01.dto.home.request.ViewHomeListRequest;
+import com.supercoding.hackathon01.dto.home.request.ViewHomePageRequest;
 import com.supercoding.hackathon01.dto.home.resposne.HomeDetailResponse;
+import com.supercoding.hackathon01.dto.home.resposne.ViewHomeListPageResponse;
 import com.supercoding.hackathon01.dto.home.resposne.ViewPointListResponse;
 import com.supercoding.hackathon01.dto.vo.Response;
 import com.supercoding.hackathon01.error.CustomException;
@@ -57,6 +59,12 @@ public class HomeController {
     @Operation(summary = "건물 리스트 조회", description = "건물 리스트 조회")
     public Response<List<ViewPointListResponse>> findHomeList(ViewHomeListRequest viewHomeListRequest) {
         return ApiUtils.success(HttpStatus.OK, homeService.getHomeList(viewHomeListRequest));
+    }
+
+    @GetMapping(value = "/page")
+    @Operation(summary = "건물 리스트 페이지 조회", description = "건물 리스트 페이지 조회")
+    public Response<ViewHomeListPageResponse> findHomePageList(ViewHomePageRequest viewHomePageRequest) {
+        return ApiUtils.success(HttpStatus.OK, homeService.getHomePageList(viewHomePageRequest));
     }
 
     @GetMapping("/{home_id}")

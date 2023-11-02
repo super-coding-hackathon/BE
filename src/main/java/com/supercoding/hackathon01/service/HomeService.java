@@ -2,7 +2,9 @@ package com.supercoding.hackathon01.service;
 
 import com.supercoding.hackathon01.dto.home.request.RegisterHomeRequest;
 import com.supercoding.hackathon01.dto.home.request.ViewHomeListRequest;
+import com.supercoding.hackathon01.dto.home.request.ViewHomePageRequest;
 import com.supercoding.hackathon01.dto.home.resposne.HomeDetailResponse;
+import com.supercoding.hackathon01.dto.home.resposne.ViewHomeListPageResponse;
 import com.supercoding.hackathon01.dto.home.resposne.ViewPointListResponse;
 import com.supercoding.hackathon01.entity.*;
 import com.supercoding.hackathon01.enums.FilePath;
@@ -116,6 +118,10 @@ public class HomeService {
 
     public List<ViewPointListResponse> getHomeList(ViewHomeListRequest viewHomeListRequest) {
         return homeCustomRepository.findPointList(viewHomeListRequest);
+    }
+
+    public ViewHomeListPageResponse getHomePageList(ViewHomePageRequest viewHomePageRequest) {
+        return homeCustomRepository.findHomePageList(viewHomePageRequest);
     }
 
     public HomeDetailResponse detailHome(Long homeId, Long userId) {

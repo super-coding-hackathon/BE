@@ -23,11 +23,9 @@ public class UserController {
 
     @PostMapping(value = "/signup")
     @Operation(summary = "회원 가입 API")
-    public Response<Void> signup(@RequestBody SignupRequest signupRequest) {
+    public Response<LoginResponse> signup(@RequestBody SignupRequest signupRequest) {
 
-        userService.signup(signupRequest);
-
-        return ApiUtils.success(HttpStatus.CREATED, null);
+        return ApiUtils.success(HttpStatus.CREATED, userService.signup(signupRequest));
     }
 
     @PostMapping("/login")

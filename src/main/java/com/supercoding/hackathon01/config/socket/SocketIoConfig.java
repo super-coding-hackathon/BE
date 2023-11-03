@@ -14,7 +14,7 @@ public class SocketIoConfig {
     @Bean
     public SocketIOServer socketIOServer() {
         com.corundumstudio.socketio.Configuration configuration = new com.corundumstudio.socketio.Configuration();
-        String host = "13.209.89.233";
+        String host = "0.0.0.0";
         configuration.setHostname(host);
         configuration.setPort(port);
         return new SocketIOServer(configuration);

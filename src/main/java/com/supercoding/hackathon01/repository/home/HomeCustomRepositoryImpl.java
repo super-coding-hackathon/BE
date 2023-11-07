@@ -187,7 +187,8 @@ public class HomeCustomRepositoryImpl implements HomeCustomRepository {
         }
     }
 
-    public BooleanBuilder createSquareFeetFilter(int value) {
+    public BooleanBuilder createSquareFeetFilter(Integer value) {
+        if (value == null) return null;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         booleanBuilder.and(home.squareFeet.isNotNull());
 
@@ -204,12 +205,15 @@ public class HomeCustomRepositoryImpl implements HomeCustomRepository {
             case 4:
                 booleanBuilder.and(home.squareFeet.goe(30));
                 break;
+            default:
+                break;
         }
 
         return booleanBuilder;
     }
 
-    public BooleanBuilder createPriceFilter(int value) {
+    public BooleanBuilder createPriceFilter(Integer value) {
+        if (value == null) return null;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         booleanBuilder.and(home.price.isNotNull());
 
@@ -225,6 +229,8 @@ public class HomeCustomRepositoryImpl implements HomeCustomRepository {
                 break;
             case 4:
                 booleanBuilder.and(home.price.goe(3000));
+                break;
+            default:
                 break;
         }
 

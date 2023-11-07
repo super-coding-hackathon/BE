@@ -46,10 +46,24 @@ public class MyPageController {
     }
 
     @Auth
+    @GetMapping("/sell/detail")
+    @Operation(summary = "판매 현황 조회")
+    public Response<SellingListResponse> getSellingDetail(Long transactionId) {
+        return ApiUtils.success(HttpStatus.OK, transactionService.getSellingDetail(transactionId));
+    }
+
+    @Auth
     @GetMapping("/buy")
     @Operation(summary = "구매 현황 조회")
     public Response<PaginationResponse<PurchaseListResponse>> getPurchaseList(Pageable pageable) {
         return ApiUtils.success(HttpStatus.OK, transactionService.getPurchaseList(pageable));
+    }
+
+    @Auth
+    @GetMapping("/buy/detail")
+    @Operation(summary = "구매 현황 조회")
+    public Response<PurchaseListResponse> getPurchaseDetail(Long transactionId) {
+        return ApiUtils.success(HttpStatus.OK, transactionService.getPurchaseDetail(transactionId));
     }
 
     @Auth

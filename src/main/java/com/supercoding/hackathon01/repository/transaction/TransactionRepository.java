@@ -30,6 +30,21 @@ public interface TransactionRepository extends TransactionCustomRepository, JpaR
             "AND p.isThumbnail = true")
     Page<SellingListResponse> findBySellingList(@Param("seller") User user, Pageable pageable);
 
+    @Query("SELECT new com.supercoding.hackathon01.dto.my_page.response.SellingListResponse " +
+            "(t.id, t.buyer.nickname, t.status.name, t.status.id, t.home.id, t.home.name, t.buyerFileUrl, a.address, p.url, t.home.deposit) " +
+            "FROM Transaction t " +
+            "JOIN t.seller " +
+            "ON t.seller = :seller " +
+            "JOIN t.home " +
+            "JOIN t.status " +
+            "JOIN Address a " +
+            "ON a.home = t.home " +
+            "JOIN Picture p " +
+            "ON p.home = t.home " +
+            "AND p.isThumbnail = true " +
+            "WHERE t.id = :transactionId ")
+    SellingListResponse findBySellingDetail(@Param("seller") User user, @Param("transactionId") Long transactionId);
+
     @Query("SELECT new com.supercoding.hackathon01.dto.my_page.response.PurchaseListResponse " +
             "(t.id, t.seller.nickname, t.status.name, t.status.id, t.home.id, t.home.name, t.sellerFileUrl, a.address, p.url, t.home.deposit, t.accountNumber) " +
             "FROM Transaction t " +
@@ -43,6 +58,21 @@ public interface TransactionRepository extends TransactionCustomRepository, JpaR
             "ON p.home = t.home " +
             "AND p.isThumbnail = true")
     Page<PurchaseListResponse> findByPurchaseList(@Param("buyer") User user, Pageable pageable);
+
+    @Query("SELECT new com.supercoding.hackathon01.dto.my_page.response.PurchaseListResponse " +
+            "(t.id, t.seller.nickname, t.status.name, t.status.id, t.home.id, t.home.name, t.sellerFileUrl, a.address, p.url, t.home.deposit, t.accountNumber) " +
+            "FROM Transaction t " +
+            "JOIN t.buyer " +
+            "ON t.buyer = :buyer " +
+            "JOIN t.home " +
+            "JOIN t.status " +
+            "JOIN Address a " +
+            "ON a.home = t.home " +
+            "JOIN Picture p " +
+            "ON p.home = t.home " +
+            "AND p.isThumbnail = true " +
+            "WHERE t.id = :transactionId ")
+    PurchaseListResponse findByPurchaseDetail(@Param("buyer") User user, @Param("transactionId") Long transactionId);
 
     @Query("SELECT new com.supercoding.hackathon01.dto.my_page.response.HomeListResponse " +
             "(h.id, h.name, h.category.name, h.transactionType, a.address, p.url, h.createdAt) " +

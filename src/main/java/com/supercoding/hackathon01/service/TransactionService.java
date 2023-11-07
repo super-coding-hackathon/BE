@@ -73,6 +73,17 @@ public class TransactionService {
                 .build();
     }
 
+    public SellingListResponse getSellingDetail(Long transactionId) {
+        User user = validUser(AuthHolder.getUserId());
+        return transactionRepository.findBySellingDetail(user, transactionId);
+
+    }
+
+    public PurchaseListResponse getPurchaseDetail(Long transactionId) {
+        User user = validUser(AuthHolder.getUserId());
+        return transactionRepository.findByPurchaseDetail(user, transactionId);
+    }
+
 
     public PaginationResponse<HomeListResponse> getMyHomeList(Pageable pageable) {
         User user = validUser(AuthHolder.getUserId());

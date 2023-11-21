@@ -17,6 +17,9 @@ public class ViewPointListResponse {
     private Long homeId;
     private Double latitude;
     private Double longitude;
+    private String transactionType;
+    private Long deposit;
+    private Long price;
 
     public static ViewPointListResponse from(Address address) {
         return ViewPointListResponse.builder()

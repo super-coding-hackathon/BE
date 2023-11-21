@@ -18,6 +18,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.querydsl.core.types.dsl.Expressions.numberTemplate;
 import static com.supercoding.hackathon01.entity.QAddress.address1;
@@ -58,7 +59,10 @@ public class HomeCustomRepositoryImpl implements HomeCustomRepository {
                 .select(Projections.constructor(ViewPointListResponse.class,
                         address1.home.id,
                         address1.latitude,
-                        address1.longitude
+                        address1.longitude,
+                        address1.home.transactionType,
+                        address1.home.deposit,
+                        address1.home.price
                         ))
                 .from(address1)
                 .leftJoin(address1.home, home)
@@ -158,25 +162,25 @@ public class HomeCustomRepositoryImpl implements HomeCustomRepository {
     }
 
     private BooleanExpression cursorValue(String cursorValue, HomeSortType homeSortType, Long cursorId) {
-        if (cursorValue == null || cursorId == null) return null;
+        if (cursorValue == null && cursorId == null) return null;
         switch (homeSortType) {
             case SQUARE_DESC:
-                return home.squareFeet.lt(Integer.valueOf(cursorValue)).or(
+                return home.squareFeet.lt(Integer.valueOf(Objects.requireNonNull(cursorValue))).or(
                         home.squareFeet.eq(Integer.valueOf(cursorValue))
                                 .and(home.id.gt(cursorId))
                 );
             case SQUARE_ASC:
-                return home.squareFeet.gt(Integer.valueOf(cursorValue)).or(
+                return home.squareFeet.gt(Integer.valueOf(Objects.requireNonNull(cursorValue))).or(
                         home.squareFeet.eq(Integer.valueOf(cursorValue))
                                 .and(home.id.gt(cursorId))
                 );
             case PRICE_DESC:
-                return home.price.lt(Long.valueOf(cursorValue)).or(
+                return home.price.lt(Long.valueOf(Objects.requireNonNull(cursorValue))).or(
                         home.price.eq(Long.valueOf(cursorValue))
                                 .and(home.id.gt(cursorId))
                 );
             case PRICE_ASC:
-                return home.price.gt(Long.valueOf(cursorValue)).or(
+                return home.price.gt(Long.valueOf(Objects.requireNonNull(cursorValue))).or(
                         home.price.eq(Long.valueOf(cursorValue))
                                 .and(home.id.gt(cursorId))
                 );
